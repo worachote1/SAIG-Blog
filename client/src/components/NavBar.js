@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { AiOutlineMenu, AiOutlineSearch, AiOutlineClose, AiFillTag } from 'react-icons/ai';
-import { BsFillCartFill, BsFillSaveFill } from 'react-icons/bs';
-import { TbTruckDelivery } from 'react-icons/tb'
+
 import { FaUserFriends, FaWallet } from 'react-icons/fa'
 import { MdFavorite, MdHelp } from 'react-icons/md'
 
@@ -80,17 +79,28 @@ const NavBar = () => {
                         <li className='text-xl py-4 flex items-center'><MdHelp size={25} className='mr-4' /> Help</li>
                         <li className='text-xl py-4 flex items-center'><FaUserFriends size={25} className='mr-4' /> Invite Friends</li>
                         <li>
-                            <button className='hidden
-            md:flex items-center cursor-pointer bg-black text-white py-2 rounded-full'>
-                                <BsFillCartFill size={20} className='mr-2' />
-                                logout
-                            </button>
+                            {(true) &&
+                                <button className='
+                px-7 py-3 bg-transparent rounded-full text-black font-medium text-sm leading-snug uppercase shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"'>
+                                    Log in
+                                </button>
+                            }
+                        </li>
+
+                        <li>
+                            {(true) &&
+                                <button className='
+                    "px-7 py-3 bg-transparent text-black rounded-full font-medium text-sm leading-snug uppercase  shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"'>
+                                    Log out
+                                </button>
+                            }
+
                         </li>
                     </ul>
                 </nav>
             </div>
 
-        </div>
+        </div >
 
     )
 }
