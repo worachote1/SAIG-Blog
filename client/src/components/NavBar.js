@@ -19,22 +19,24 @@ const NavBar = () => {
                     onClick={() => setNav(!nav)}>
                     <AiOutlineMenu size={20.44} />
                 </div>
-                <h1 className='text-2xl sm:text-3xl
-                lg:text-4xl px-2'>
-                    <span className='text-teal-400'>S A I G</span> B l o g
-                </h1>
+                <a href='/'>
+                    <h1 className='text-2xl sm:text-3xl
+                    lg:text-4xl px-2'>
+                        <span className='text-teal-400'>S A I G</span> B l o g
+                    </h1>
+                </a>
 
             </div>
 
             {/* Search Input */}
-            <div className='bg-gray-200 rounded-full flex items-center px-2
+            <div className='bg-gray-200 rounded-full flex items-center mx-4 px-2
             w-[200px] sm:w-[400px] lg:w-[500px]'>
                 <AiOutlineSearch size={20.44} />
                 <input className='p-2 focus:outline-none w-[100%] bg-transparent'
-                    type="text" placeholder='Search foods' />
+                    type="text" placeholder='Search...' />
             </div>
 
-            {/* Cart Button */}
+            {/* Button */}
             <div>{(true) &&
                 <button className='hidden
                 px-7 py-3 bg-transparent rounded-full text-black font-medium text-sm leading-snug uppercase shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
