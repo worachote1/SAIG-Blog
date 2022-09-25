@@ -22,10 +22,10 @@ const blogSchema = mongoose.Schema({
     },
     slug : {
         type:String,
-        lowerCase:true,
+        lowercase:true,
         unique:true
     }
     
 },{timestamps: true})
 
-const Blog = mongoose.model('Blog',blogSchema)
+module.exports = mongoose.model('Blogs',blogSchema)

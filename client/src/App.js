@@ -1,9 +1,12 @@
+import React from 'react'
+import Navbar from './components/NavBar';
+import Login from './components/Login';
 
 function App() {
   return (
-    <div className="App">
-      <h1>SAIG BLOG</h1>
-      <button className='bg-red-300'>test</button>
+    <div>
+      <Navbar />
+      <Login />
     </div>
   );
 }

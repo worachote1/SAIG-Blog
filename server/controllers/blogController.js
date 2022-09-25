@@ -1,4 +1,5 @@
 //conect to Database
+const Blogs = require("../Model/blogs")
 const slugify = require('slugify')
 
 //save data
@@ -14,7 +15,13 @@ exports.create = (req,res)=>{
         return res.status(400).json({msg_error : "please , enter content"})
     }
     
-    res.json({
-        data : {title,content,prn_type,author,slug}
+    //save to database
+    Blogs.create({title,content,prn_type,author,slug},(err,blog)=>{
+        //failed save
+        if(err){
+            res.status(400).json({msg_err44: err})
+        }
+        res.json(blog)
     })
+
 }
