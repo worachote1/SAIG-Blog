@@ -15,7 +15,7 @@ const NavBar = () => {
         '>
             {/* left side */}
             <div className='flex items-center'>
-                <div className='cursor-pointer'
+                <div className='cursor-pointer md:hidden'
                     onClick={() => setNav(!nav)}>
                     <AiOutlineMenu size={20.44} />
                 </div>
