@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import NavBar from './NavBar'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Form = () => {
 
@@ -16,13 +17,28 @@ const Form = () => {
         axios.post(`${process.env.REACT_APP_API}/create`,{title,content,prn_type,author})
         .then((res)=>{
             console.log(res)
-            alert("Save data success")
+            //alert("Save data success")
+            Swal.fire(
+                'Warning',
+                'Save data success',
+                'success'
+              )
+
+            //clear form 
+            setTitle("")
+            setContent("")
+            set_prn_type("")
+            setAuthor("")
         })
         .catch((err)=>{
             //err.res.data.msg_err
             console.log(err)
             console.log(err.response.data.msg_error)
-            alert(err.response.data.msg_error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Warning...',
+                text: `${err.response.data.msg_error}`
+              })
         })
     }
 
