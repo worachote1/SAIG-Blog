@@ -17,7 +17,7 @@ const NavBar = () => {
             <div className='flex items-center'>
                 <div className='cursor-pointer md:hidden'
                     onClick={() => setNav(!nav)}>
-                    <AiOutlineMenu size={20.44} />
+                    <AiOutlineMenu size={30} />
                 </div>
                 <a href='/'>
                     <h1 className='text-2xl sm:text-3xl
@@ -29,12 +29,12 @@ const NavBar = () => {
             </div>
 
             {/* Search Input */}
-            <div className='bg-gray-200 rounded-full flex items-center mx-4 px-2
+            {/* <div className='bg-gray-200 rounded-full flex items-center mx-4 px-2
             w-[200px] sm:w-[400px] lg:w-[500px]'>
                 <AiOutlineSearch size={20.44} />
                 <input className='p-2 focus:outline-none w-[100%] bg-transparent'
                     type="text" placeholder='Search...' />
-            </div>
+            </div> */}
 
             {/* Button */}
             <div>
@@ -73,7 +73,7 @@ const NavBar = () => {
             {/* Mobile Menu */}
             {/* background overlay when click tab icon on the top left side? */}
 
-            {nav ?
+            {(nav) ?
                 <div className='bg-black/80 
                 fixed w-screen h-screen
                 top-0 left-0

@@ -5,14 +5,9 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className='max-w-[1640px] mx-auto
-    flex flex-col justify-between items-center p-4' >
-
-      <Navbar />
-
-
-
-    </div>
+    <div className='max-w-[1640px] mx-auto p-4' >
+        <Navbar />  
+     </div> 
   );
 }
 

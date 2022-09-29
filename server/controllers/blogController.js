@@ -19,7 +19,7 @@ exports.create = (req,res)=>{
     Blogs.create({title,content,prn_type,author,slug},(err,blog)=>{
         //failed save
         if(err){
-            res.status(400).json({msg_err44: err})
+            res.status(400).json({msg_error: "duplicate title"})
         }
         res.json(blog)
     })
