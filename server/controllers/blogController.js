@@ -1,12 +1,17 @@
 //conect to Database
 const Blogs = require("../Model/blogs")
 const slugify = require('slugify')
-const blogs = require("../Model/blogs")
+const { v4: uuidv4 } = require('uuid');
 
 //save data
 const create = (req,res)=>{
     const {title,content,prn_type,author} = req.body
-    const slug = slugify(title)
+    let slug = slugify(title)
+    
+    //if title not eng
+    if(!slug){
+        slug = uuidv4();
+    }
 
     //validate
     if(!title){
@@ -36,5 +41,16 @@ const getAllBlogs =(req,res)=>{
     })
 }
 
+//Get a single blog using slug
+const getSingleBlog = (req,res) =>{
+
+    console.log("test show 44 -> ")
+    console.log(req)
+    const {slug} = req.params
+    Blogs.findOne({slug}).exec((err,blog)=>{
+        res.json(blog)
+    })
+}
+
 //export function
-module.exports = {create,getAllBlogs}
+module.exports = {create,getAllBlogs,getSingleBlog}
