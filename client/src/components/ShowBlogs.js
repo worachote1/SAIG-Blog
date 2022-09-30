@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from 'react'
 
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const ShowBlogs = () => {
 
     const [blogs, setBlogs] = useState([])
+
+    // const [data,setData] = useState(blogs)
+
+    //prn section
+    //test filter prn_type
+    let [data, setData] = useState([])
+    const [typeActive, setTypeActive] = useState(false)
+
+    const filterType = (prn_type) => {
+        setData(
+            data = blogs.filter((blog) => {
+                return blog.prn_type === prn_type
+            })
+        )
+        //alert("Sdf")
+    }
 
     const fetchData = () => {
         axios.get(`${process.env.REACT_APP_API}/blogs`)
@@ -29,7 +45,57 @@ const ShowBlogs = () => {
     return (
         <div className=' w-full flex flex-col mt-2'>
             {/* {JSON.stringify(blogs)} */}
-            {blogs.map((blog, index) => (
+             
+            {/* select type Controller */}
+            <div className='p-4 flex flex-col justify-between flex-wrap sm:flex-row'>
+                <div className='mt-3'>
+                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
+                onClick={() => {
+                    filterType("Art")
+                    setTypeActive(true)
+                }}>Art</button>
+                </div>
+                <div className='mt-3'>
+                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
+                onClick={() => {
+                    filterType("Business")
+                    setTypeActive(true)
+                }}>Business</button>
+                </div>
+                <div className='mt-3'>
+                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
+                onClick={() => {
+                    filterType("Money")
+                    setTypeActive(true)
+                }}>Money</button>
+                </div>
+                <div className='mt-3'>
+                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
+                onClick={() => {
+                    filterType("Psychology")
+                    setTypeActive(true)
+                }}>Psychology</button>
+                </div>
+                <div className='mt-3'>
+                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
+                onClick={() => {
+                    filterType("Science")
+                    setTypeActive(true)
+                }}>Science</button>
+                </div>
+
+                <div className='mt-3'>
+                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
+                onClick={() => {
+                    filterType("Technology")
+                    setTypeActive(true)
+                }}>Technology</button>
+                </div>
+       
+            </div>
+
+            {/*  render when select a type*/}
+            {(typeActive) && data.map((blog, index) => (
                 <div className='mb-2 p-4 border-b-[1px]' key={index}>
                     <Link to={`/blog/${blog.slug}`}>
                         <h2 className='font-bold'>{blog.title}</h2>
@@ -39,8 +105,22 @@ const ShowBlogs = () => {
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
                 </div>
-
             ))}
+
+            {/* render at the first time ()not select type yet */}
+            {!(typeActive) && blogs.map((blog, index) => (
+                <div className='mb-2 p-4 border-b-[1px]' key={index}>
+                    <Link to={`/blog/${blog.slug}`}>
+                        <h2 className='font-bold'>{blog.title}</h2>
+                    </Link>
+
+                    <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
+                    <p className='font-light'>Author : {blog.author} </p>
+                    <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
+                </div>
+            ))}
+
+
         </div>
     )
 }
