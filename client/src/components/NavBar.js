@@ -11,7 +11,7 @@ const NavBar = () => {
     return (
 
         <div className='max-w-[1640px] mx-auto
-        flex justify-between items-center p-4 
+        flex justify-between p-4 
         '>
             {/* left side */}
             <div className='flex items-center'>

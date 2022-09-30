@@ -27,7 +27,7 @@ const ShowBlogs = () => {
         axios.get(`${process.env.REACT_APP_API}/blogs`)
             .then((res) => {
 
-                console.log("get data success !")
+                console.log("get all data success !")
                 console.log(res)
                 setBlogs(res.data)
             })
@@ -43,7 +43,7 @@ const ShowBlogs = () => {
     }, [])
 
     return (
-        <div className=' w-full flex flex-col mt-2'>
+        <div className=' w-full  mt-2'>
             {/* {JSON.stringify(blogs)} */}
              
             {/* select type Controller */}
@@ -92,10 +92,10 @@ const ShowBlogs = () => {
                 }}>Technology</button>
                 </div>
        
-            </div>
+            </div> 
 
             {/*  render when select a type*/}
-            {(typeActive) && data.map((blog, index) => (
+             {(typeActive) && data.map((blog, index) => (
                 <div className='mb-2 p-4 border-b-[1px]' key={index}>
                     <Link to={`/blog/${blog.slug}`}>
                         <h2 className='font-bold'>{blog.title}</h2>
@@ -111,7 +111,7 @@ const ShowBlogs = () => {
             {!(typeActive) && blogs.map((blog, index) => (
                 <div className='mb-2 p-4 border-b-[1px]' key={index}>
                     <Link to={`/blog/${blog.slug}`}>
-                        <h2 className='font-bold'>{blog.title}</h2>
+                        <h2 className='font-bold text-3xl'>{blog.title}</h2>
                     </Link>
 
                     <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
