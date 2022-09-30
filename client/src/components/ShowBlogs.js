@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const ShowBlogs = () => {
 
@@ -32,15 +33,49 @@ const ShowBlogs = () => {
                 setBlogs(res.data)
             })
             .catch((err) => {
-                alert(err)
+                //alert(err)
                 console.log("Can't get data")
             })
     }
 
-    // Fetch data when web is open
+    // Fetch data when web is open or refresh
     useEffect(() => {
         fetchData()
     }, [])
+
+    //remove by slug
+    const confirmRemove = (slug) =>{
+        Swal.fire({
+            title:"Do you want to delete this blog?",
+            icon:"warning",
+            showCancelButton:true
+        }).then((result)=>{
+        
+            if(result.isConfirmed){
+              //alert(slug)
+              
+              //send request API for delete
+              removeBlog(slug)
+
+            }
+        })
+    }
+
+    const removeBlog = (slug) =>{
+        axios.delete(`${process.env.REACT_APP_API}/blog/${slug}`)
+        .then((res)=>{
+            console.log("remove ...")
+            // console.log(res)
+            Swal.fire({
+                title:`${res.data.msg}`,
+                icon:"success"
+        })
+            
+            //fetch all available
+            fetchData();
+        })
+        .catch((err)=>console.log(err))
+    }
 
     return (
         <div className=' w-full  mt-2'>
@@ -104,6 +139,11 @@ const ShowBlogs = () => {
                     <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
+                    <div className='mt-2'> 
+                        <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'> Update </button>
+                        <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={()=> confirmRemove(blog.slug)}> Delete </button>
+                    </div>
                 </div>
             ))}
 
@@ -117,6 +157,11 @@ const ShowBlogs = () => {
                     <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
+                    <div className='mt-2'> 
+                        <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'> Update </button>
+                        <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={()=> confirmRemove(blog.slug)}> Delete </button>
+                    </div>
                 </div>
             ))}
 

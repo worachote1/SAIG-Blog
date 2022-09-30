@@ -52,5 +52,16 @@ const getSingleBlog = (req,res) =>{
     })
 }
 
+//remove data
+
+const remove = (req,res) =>{
+    const {slug} = req.params
+    Blogs.findOneAndDelete({slug}).exec((err,blog)=>{
+
+        res.json({msg:"Remove success !",slug:slug})
+    })
+
+}
+
 //export function
-module.exports = {create,getAllBlogs,getSingleBlog}
+module.exports = {create,getAllBlogs,getSingleBlog,remove}
