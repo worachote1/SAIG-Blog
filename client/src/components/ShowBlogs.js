@@ -14,7 +14,6 @@ const ShowBlogs = () => {
     //test filter prn_type
     let [data, setData] = useState([])
     const [typeActive, setTypeActive] = useState(false)
-
     const filterType = (prn_type) => {
         setData(
             data = blogs.filter((blog) => {
@@ -24,6 +23,7 @@ const ShowBlogs = () => {
         //alert("Sdf")
     }
 
+    //
     const fetchData = () => {
         axios.get(`${process.env.REACT_APP_API}/blogs`)
             .then((res) => {
@@ -31,6 +31,10 @@ const ShowBlogs = () => {
                 console.log("get all data success !")
                 console.log(res)
                 setBlogs(res.data)
+
+                //test if remove during filter system
+
+
             })
             .catch((err) => {
                 //alert(err)
@@ -56,7 +60,6 @@ const ShowBlogs = () => {
               
               //send request API for delete
               removeBlog(slug)
-
             }
         })
     }
@@ -68,11 +71,14 @@ const ShowBlogs = () => {
             // console.log(res)
             Swal.fire({
                 title:`${res.data.msg}`,
-                icon:"success"
-        })
+                icon:"success"})
             
             //fetch all available
             fetchData();
+            //if it's in filter system then refresh whole web 
+            if(typeActive){
+                window.location.reload(false)
+            }
         })
         .catch((err)=>console.log(err))
     }
@@ -86,6 +92,7 @@ const ShowBlogs = () => {
                 <div className='mt-3'>
                 <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
                 onClick={() => {
+                
                     filterType("Art")
                     setTypeActive(true)
                 }}>Art</button>
@@ -93,6 +100,7 @@ const ShowBlogs = () => {
                 <div className='mt-3'>
                 <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
                 onClick={() => {
+                    
                     filterType("Business")
                     setTypeActive(true)
                 }}>Business</button>
@@ -100,6 +108,7 @@ const ShowBlogs = () => {
                 <div className='mt-3'>
                 <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
                 onClick={() => {
+                
                     filterType("Money")
                     setTypeActive(true)
                 }}>Money</button>
@@ -107,6 +116,7 @@ const ShowBlogs = () => {
                 <div className='mt-3'>
                 <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
                 onClick={() => {
+                    
                     filterType("Psychology")
                     setTypeActive(true)
                 }}>Psychology</button>
@@ -114,6 +124,7 @@ const ShowBlogs = () => {
                 <div className='mt-3'>
                 <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
                 onClick={() => {
+                
                     filterType("Science")
                     setTypeActive(true)
                 }}>Science</button>
@@ -122,6 +133,7 @@ const ShowBlogs = () => {
                 <div className='mt-3'>
                 <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
                 onClick={() => {
+                    
                     filterType("Technology")
                     setTypeActive(true)
                 }}>Technology</button>
@@ -134,13 +146,18 @@ const ShowBlogs = () => {
                 <div className='mb-2 p-4 border-b-[1px]' key={index}>
                     <Link to={`/blog/${blog.slug}`}>
                         <h2 className='font-bold'>{blog.title}</h2>
+                        <p className='font-light'>Category : {blog.prn_type} </p>
                     </Link>
 
                     <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
                     <div className='mt-2'> 
-                        <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'> Update </button>
+                        <Link to={`/blog/update/${blog.slug}`}>
+                            <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>
+                                Update 
+                            </button>
+                        </Link>
                         <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
                         onClick={()=> confirmRemove(blog.slug)}> Delete </button>
                     </div>
@@ -152,13 +169,18 @@ const ShowBlogs = () => {
                 <div className='mb-2 p-4 border-b-[1px]' key={index}>
                     <Link to={`/blog/${blog.slug}`}>
                         <h2 className='font-bold text-3xl'>{blog.title}</h2>
+                        <p className='font-light'>Category : {blog.prn_type} </p>
                     </Link>
 
                     <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
                     <div className='mt-2'> 
-                        <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'> Update </button>
+                        <Link to={`/blog/update/${blog.slug}`}>
+                            <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>
+                                Update 
+                            </button>
+                        </Link>
                         <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
                         onClick={()=> confirmRemove(blog.slug)}> Delete </button>
                     </div>

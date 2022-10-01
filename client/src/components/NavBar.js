@@ -3,6 +3,7 @@ import { AiOutlineMenu, AiOutlineSearch, AiOutlineClose, AiFillTag } from 'react
 
 import { FaUserFriends, FaWallet } from 'react-icons/fa'
 import { MdFavorite, MdHelp } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
 

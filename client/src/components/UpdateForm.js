@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import Footer from './Footer'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useParams } from 'react-router-dom';
 
-const Form = () => {
+const UpdateForm = () => {
 
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
@@ -21,14 +22,14 @@ const Form = () => {
             //alert("Save data success")
             Swal.fire(
                 'Warning',
-                'Save data success',
+                'Update data success',
                 'success'
               )
 
             //clear form 
             setTitle("")
             setContent("")
-            set_prn_type(prn_type)
+           // set_prn_type(prn_type)
             setAuthor("")
         })
         .catch((err)=>{
@@ -43,6 +44,26 @@ const Form = () => {
         })
     }
 
+
+    //fetch former data to be displayed
+    const {slug} = useParams()
+    useEffect(()=>{
+        axios.get(`${process.env.REACT_APP_API}/blog/${slug}`)
+        .then((res)=>{
+            console.log("Former data -> ")
+            console.log(res)
+            const data = res.data
+            setTitle(data.title)
+            setContent(data.content)
+            //set_prn_type(data.prn_type)
+            setAuthor(data.author)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },[])
+
+
     return (
         <div
             className='max-w-[1640px] mx-auto p-3'
@@ -54,7 +75,7 @@ const Form = () => {
            <p>{`title : ${title} content : ${content}, prn_type : ${prn_type}, author : ${author} `}</p> */}
 
             <div className='p-4'>
-                <h1 className='font-bold text-3xl '>Write a Blog Post</h1>
+                <h1 className='font-bold text-3xl text-lime-300'>Update blog</h1>
                 <form onSubmit={submitForm}>
                     <div className='mt-3'>
                         <label for="small-input" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Title : </label>
@@ -112,4 +133,4 @@ const Form = () => {
     )
 }
 
-export default Form
+export default UpdateForm
