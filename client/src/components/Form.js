@@ -7,6 +7,7 @@ import Swal from 'sweetalert2'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+
 const Form = () => {
 
     const [title, setTitle] = useState("")
@@ -16,34 +17,34 @@ const Form = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.table({title,content,prn_type,author})
-        console.log("display API Link -> ",process.env.REACT_APP_API)
-        axios.post(`${process.env.REACT_APP_API}/create`,{title,content,prn_type,author})
-        .then((res)=>{
-            console.log(res)
-            //alert("Save data success")
-            Swal.fire(
-                'Warning',
-                'Save data success',
-                'success'
-              )
+        console.table({ title, content, prn_type, author })
+        console.log("display API Link -> ", process.env.REACT_APP_API)
+        axios.post(`${process.env.REACT_APP_API}/create`, { title, content, prn_type, author })
+            .then((res) => {
+                console.log(res)
+                //alert("Save data success")
+                Swal.fire(
+                    'Warning',
+                    'Save data success',
+                    'success'
+                )
 
-            //clear form 
-            setTitle("")
-            setContent("")
-            set_prn_type(prn_type)
-            setAuthor("")
-        })
-        .catch((err)=>{
-            //err.res.data.msg_err
-            console.log(err)
-            console.log(err.response.data.msg_error)
-            Swal.fire({
-                icon: 'error',
-                title: 'Warning...',
-                text: `${err.response.data.msg_error}`
-              })
-        })
+                //clear form 
+                setTitle("")
+                setContent("")
+                set_prn_type(prn_type)
+                setAuthor("")
+            })
+            .catch((err) => {
+                //err.res.data.msg_err
+                console.log(err)
+                console.log(err.response.data.msg_error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Warning...',
+                    text: `${err.response.data.msg_error}`
+                })
+            })
     }
 
     return (
@@ -56,58 +57,63 @@ const Form = () => {
            {console.log("title : ",title," content : ",content," prn_type : ",prn_type," author : ",author)}
            <p>{`title : ${title} content : ${content}, prn_type : ${prn_type}, author : ${author} `}</p> */}
 
-            <div className='p-4'>
-                <h1 className='font-bold text-3xl '>Write a Blog Post</h1>
-                <form onSubmit={submitForm}>
-                    <div className='mt-3'>
-                        <label for="small-input" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Title : </label>
-                        <input type="text" id="small-input" class="block p-2 w-[50%] text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs
+            <div className='p-4 max-w-[1640px]'>
+                    <h1 className='font-bold text-3xl '>Write a Blog Post</h1>
+                    <form onSubmit={submitForm}>
+                        <div className='mt-3'>
+                            <label for="small-input" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Title : </label>
+                            <input type="text" id="small-input" class="block p-2 w-[50%] text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs
          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
          focus:outline-none 
          md:text-xl
         "
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                    </div>
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                        </div>
 
-                    <div className='mt-3'>
-                        <label for="countries" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Select Type :</label>
-                        <select id="countries" class="bg-gray-50 border w-[50%] border-gray-300 text-gray-900 text-sm rounded-lg p-3 focus:outline-none "
-                            onChange={(e) => set_prn_type(e.target.value)}>
-                            <option value='Art'>Art</option>
-                            <option value="Business">Business</option>
-                            <option value="Money">Money</option>
-                            <option value="Psychology">Psychology</option>
-                            <option value="Science">Science</option>
-                            <option value="Technology">Technology</option>
-                        </select>
-                    </div>
+                        <div className='mt-3'>
+                            <label for="countries" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Select Type :</label>
+                            <select id="countries" class="bg-gray-50 border w-[50%] border-gray-300 text-gray-900 text-sm rounded-lg p-3 focus:outline-none "
+                                onChange={(e) => set_prn_type(e.target.value)}>
+                                <option value='Art'>Art</option>
+                                <option value="Business">Business</option>
+                                <option value="Money">Money</option>
+                                <option value="Psychology">Psychology</option>
+                                <option value="Science">Science</option>
+                                <option value="Technology">Technology</option>
+                            </select>
+                        </div>
 
                     <div className='mt-3'>
                         <label for="message" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-400">Content : </label>
-                        <textarea id="message" rows="7" class="block p-2.5 w-[90%] text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none 
-                        md:text-xl" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+                    <ReactQuill 
+                        value={content}
+                        onChange={(e) => setContent(e)}
+                        className='w-[70%]'
+                    />
                     </div>
 
 
-                    <div className='mt-3'>
-                        <label for="small-input" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Author : </label>
-                        <input type="text" id="small-input" class="block p-2 w-[50%] text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs
+                        <div className='mt-3'>
+                            <label for="small-input" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Author : </label>
+                            <input type="text" id="small-input" class="block p-2 w-[50%] text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs
          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
          focus:outline-none 
          md:text-xl
         " value={author}
-                            onChange={(e) => setAuthor(e.target.value)}
-                        />
-                    </div>
+            onChange={(e) => setAuthor(e.target.value)}
+                            />
+                        </div>
 
-                    <div className='mt-8'>
-                        <input type='submit' value="Save" className=' px-7 py-3 bg-green-600 rounded-full text-black font-medium text-md leading-snug uppercase shadow-md hover:scale-125 hover:cursor-pointer transition duration-150 ease-in-out"
+                        <div className='mt-8'>
+                            <input type='submit' value="Save" className=' px-7 py-3 bg-green-600 rounded-full text-black font-medium text-md leading-snug uppercase shadow-md hover:scale-125 hover:cursor-pointer transition duration-150 ease-in-out"
              md:inline-block' />
-                    </div>
+                        </div>
 
-                </form>
+                    </form>
+            
+
             </div>
 
             <Footer />

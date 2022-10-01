@@ -4,6 +4,7 @@ import Navbar from './components/NavBar';
 import ShowBlogs from './components/ShowBlogs';
 import Footer from './components/Footer'
 
+
 function App() {
 
   return (

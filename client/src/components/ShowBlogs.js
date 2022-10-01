@@ -4,6 +4,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
+import parse from 'html-react-parser';
+
 const ShowBlogs = () => {
 
     const [blogs, setBlogs] = useState([])
@@ -144,12 +146,12 @@ const ShowBlogs = () => {
             {/*  render when select a type*/}
              {(typeActive) && data.map((blog, index) => (
                 <div className='mb-2 p-4 border-b-[1px]' key={index}>
-                    <Link to={`/blog/${blog.slug}`}>
+                    <Link to={`/blog/${blog.slug}`} >
                         <h2 className='font-bold'>{blog.title}</h2>
                         <p className='font-light'>Category : {blog.prn_type} </p>
                     </Link>
 
-                    <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
+                    <div>{parse(blog.content.substring(0, 220))} <span className='font-light'>...</span></div>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
                     <div className='mt-2'> 
@@ -171,8 +173,8 @@ const ShowBlogs = () => {
                         <h2 className='font-bold text-3xl'>{blog.title}</h2>
                         <p className='font-light'>Category : {blog.prn_type} </p>
                     </Link>
-
-                    <p>{blog.content.substring(0, 220)} <span className='font-light'>...</span></p>
+                    
+                    <div>{parse(blog.content.substring(0, 220))} <span className='font-light'>...</span></div>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
                     <div className='mt-2'> 

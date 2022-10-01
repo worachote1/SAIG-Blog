@@ -34,7 +34,7 @@ const create = (req, res) => {
 
 //Get all data
 const getAllBlogs = (req, res) => {
-    Blogs.find().exec((err, blogs) => {
+    Blogs.find().sort({ createdAt: -1 }).exec((err, blogs) => {
         res.json(blogs)
         console.log("test getAllBlog : ")
         console.log(blogs)

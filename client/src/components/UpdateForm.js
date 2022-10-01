@@ -5,6 +5,9 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useParams } from 'react-router-dom';
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 const UpdateForm = () => {
 
     const [title, setTitle] = useState("")
@@ -71,7 +74,7 @@ const UpdateForm = () => {
            {console.log("title : ",title," content : ",content," prn_type : ",prn_type," author : ",author)}
            <p>{`title : ${title} content : ${content}, prn_type : ${prn_type}, author : ${author} `}</p> */}
 
-            <div className='p-4'>
+            <div className='p-4 max-w-[1640px]'>
                 <h1 className='font-bold text-3xl text-lime-300'>Update blog</h1>
                 <form onSubmit={submitUpdateForm}>
                     <div className='mt-3'>
@@ -101,8 +104,12 @@ const UpdateForm = () => {
 
                     <div className='mt-3'>
                         <label for="message" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-400">Content : </label>
-                        <textarea id="message" rows="7" class="block p-2.5 w-[90%] text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none 
-                        md:text-xl" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+                         
+                        <ReactQuill 
+                        value={content}
+                        onChange={(e) => setContent(e)}
+                        className='w-[70%]'
+                    />
                     </div>
 
 
