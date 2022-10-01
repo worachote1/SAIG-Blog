@@ -4,6 +4,9 @@ import Footer from './Footer'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 const Form = () => {
 
     const [title, setTitle] = useState("")

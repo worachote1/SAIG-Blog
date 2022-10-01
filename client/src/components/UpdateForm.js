@@ -11,26 +11,23 @@ const UpdateForm = () => {
     const [content, setContent] = useState("")
     const [prn_type, set_prn_type] = useState("Art")
     const [author, setAuthor] = useState("")
+    
+    const {slug} = useParams()
 
-    const submitForm = (e) => {
+    const submitUpdateForm = (e) => {
         e.preventDefault();
         console.table({title,content,prn_type,author})
-        console.log("display API Link -> ",process.env.REACT_APP_API)
-        axios.post(`${process.env.REACT_APP_API}/create`,{title,content,prn_type,author})
+        axios.put(`${process.env.REACT_APP_API}/blog/${slug}`,{title,content,prn_type,author})
         .then((res)=>{
             console.log(res)
             //alert("Save data success")
+            
             Swal.fire(
                 'Warning',
-                'Update data success',
+                'Update blog success',
                 'success'
               )
 
-            //clear form 
-            setTitle("")
-            setContent("")
-           // set_prn_type(prn_type)
-            setAuthor("")
         })
         .catch((err)=>{
             //err.res.data.msg_err
@@ -38,7 +35,7 @@ const UpdateForm = () => {
             console.log(err.response.data.msg_error)
             Swal.fire({
                 icon: 'error',
-                title: 'Warning...',
+                title: 'Update Error !',
                 text: `${err.response.data.msg_error}`
               })
         })
@@ -46,17 +43,17 @@ const UpdateForm = () => {
 
 
     //fetch former data to be displayed
-    const {slug} = useParams()
+    
     useEffect(()=>{
         axios.get(`${process.env.REACT_APP_API}/blog/${slug}`)
         .then((res)=>{
             console.log("Former data -> ")
             console.log(res)
-            const data = res.data
-            setTitle(data.title)
-            setContent(data.content)
-            //set_prn_type(data.prn_type)
-            setAuthor(data.author)
+            const {content,author,title} = res.data
+            setTitle(title)
+            setContent(content)
+            set_prn_type(prn_type)
+            setAuthor(author)
         })
         .catch((err)=>{
             console.log(err)
@@ -76,7 +73,7 @@ const UpdateForm = () => {
 
             <div className='p-4'>
                 <h1 className='font-bold text-3xl text-lime-300'>Update blog</h1>
-                <form onSubmit={submitForm}>
+                <form onSubmit={submitUpdateForm}>
                     <div className='mt-3'>
                         <label for="small-input" class="block mb-2 text-xl font-bold text-gray-900 dark:text-gray-300">Title : </label>
                         <input type="text" id="small-input" class="block p-2 w-[50%] text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs
@@ -121,7 +118,7 @@ const UpdateForm = () => {
                     </div>
 
                     <div className='mt-8'>
-                        <input type='submit' value="Save" className=' px-7 py-3 bg-green-600 rounded-full text-black font-medium text-md leading-snug uppercase shadow-md hover:scale-125 hover:cursor-pointer transition duration-150 ease-in-out"
+                        <input type='submit' value="Update" className=' px-7 py-3 bg-green-600 rounded-full text-black font-medium text-md leading-snug uppercase shadow-md hover:scale-125 hover:cursor-pointer transition duration-150 ease-in-out"
              md:inline-block' />
                     </div>
 

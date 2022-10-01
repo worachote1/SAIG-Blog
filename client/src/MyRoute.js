@@ -5,7 +5,8 @@ import SingleComponent from "./components/SingleComponent"
 import UpdateForm from "./components/UpdateForm"
 
 const MyRoute = () => {
-
+    
+    document.title = 'SAIG Blog';
     return (
         <BrowserRouter>
             <Routes>

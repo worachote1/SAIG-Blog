@@ -66,7 +66,16 @@ const remove = (req, res) => {
 const update = (req, res) => {
     const { title, content, prn_type, author } = req.body
     const { slug } = req.params
-    Blogs.findOneAndUpdate({ slug }, { title,content, prn_type, author }, { new: true }).exec((err, blog) => {
+    
+    Blogs.findOneAndUpdate({ slug }, {  title,content,prn_type, author }, { new: true }).exec((err, blog) => {
+      
+        //validate Update blog
+        if (!title) {
+            return res.status(400).json({ msg_error: "please , enter title" })
+        }
+        if (!content) {
+            return res.status(400).json({ msg_error: "please , enter content" })
+        }
         res.json(blog)
     })
 
