@@ -3,9 +3,9 @@ import { AiOutlineMenu, AiOutlineSearch, AiOutlineClose, AiFillTag } from 'react
 
 import { FaUserFriends, FaWallet } from 'react-icons/fa'
 import { MdFavorite, MdHelp } from 'react-icons/md'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { getUser } from '../services/authorize';
+import { getUser, logout } from '../services/authorize';
 
 const NavBar = () => {
 
@@ -50,26 +50,28 @@ const NavBar = () => {
              md:inline-block'>
                         Write
                     </button>
-                    </Link>
+                </Link>
                 }
                 {/* Login */}
-                { !getUser() && <Link to='/login'>
+                {!getUser() && <Link to='/login'>
                     <button className='hidden
                 px-7 py-3 mx-2 bg-transparent rounded-full text-black font-medium text-sm leading-snug uppercase shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
              md:inline-block'>
                         Log in
                     </button>
-                    </Link>
+                </Link>
                 }
 
                 {/* Logout */}
                 {getUser() && <a>
                     <button className='hidden
                     "px-7 py-3 mx-2 bg-transparent text-black rounded-full font-medium text-sm leading-snug uppercase  shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-             md:inline-block'>
+             md:inline-block'
+                    onClick={()=>logout(() => {navigate('/')})}
+                    >
                         Log out
                     </button>
-                    </a>
+                </a>
                 }
             </div>
 
@@ -93,7 +95,7 @@ const NavBar = () => {
 
                 <h2 className='text-2xl p-4'>
                     <Link to='/'>
-                    <span className='text-teal-400'>S A I G</span> B l o g
+                        <span className='text-teal-400'>S A I G</span> B l o g
                     </Link>
                 </h2>
                 <nav>
@@ -101,6 +103,7 @@ const NavBar = () => {
                         <li className='text-xl py-4 flex items-center'><MdFavorite size={25} className='mr-4' /> Favorites</li>
                         <li className='text-xl py-4 flex items-center'><MdHelp size={25} className='mr-4' /> Help</li>
                         <li className='text-xl py-4 flex items-center'><FaUserFriends size={25} className='mr-4' /> Invite Friends</li>
+                        {/* Go create page */}
                         <li>
                             {getUser() && <Link to='/create'>
                                 <button className='
@@ -108,28 +111,35 @@ const NavBar = () => {
              md:inline-block'>
                                     Write
                                 </button>
-                                </Link>
+                            </Link>
                             }
                         </li>
+
+                        {/* Login */}
                         <li>
-                            {!getUser() && <Link to ='/login'>
+                            {!getUser() && <Link to='/login'>
                                 <button className='
                 px-7 py-3 mt-2 bg-transparent rounded-full text-black font-medium text-sm leading-snug uppercase shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"'>
                                     Log in
                                 </button>
-                                </Link>
+                            </Link>
                             }
                         </li>
 
+                        {/* Logout */}
                         <li>
-                            {getUser() &&<a>
+                            {getUser() && <a>
                                 <button className='
-                    "px-7 py-3 mt-2 bg-transparent text-black rounded-full font-medium text-sm leading-snug uppercase  shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"'>
+                    px-7 py-3 mt-2 bg-transparent text-black rounded-full font-medium text-sm leading-snug uppercase  shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+                                    onClick={()=>logout(() => {
+                                        navigate('/') 
+                                        window.location.reload(false)})}
+                                >
                                     Log out
                                 </button>
-                                </a>
+                            </a>
                             }
-                            
+
                         </li>
                     </ul>
                 </nav>
