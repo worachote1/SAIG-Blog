@@ -1,5 +1,4 @@
 
-const { json } = require('express')
 const jwt = require('jsonwebtoken')
 const login =(req,res)=>{
  

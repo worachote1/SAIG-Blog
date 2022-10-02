@@ -6,6 +6,8 @@ import Swal from 'sweetalert2'
 
 import parse from 'html-react-parser';
 
+import { getUser } from '../services/authorize';
+
 const ShowBlogs = () => {
 
     const [blogs, setBlogs] = useState([])
@@ -50,101 +52,102 @@ const ShowBlogs = () => {
     }, [])
 
     //remove by slug
-    const confirmRemove = (slug) =>{
+    const confirmRemove = (slug) => {
         Swal.fire({
-            title:"Do you want to delete this blog?",
-            icon:"warning",
-            showCancelButton:true
-        }).then((result)=>{
-        
-            if(result.isConfirmed){
-              //alert(slug)
-              
-              //send request API for delete
-              removeBlog(slug)
+            title: "Do you want to delete this blog?",
+            icon: "warning",
+            showCancelButton: true
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                //alert(slug)
+
+                //send request API for delete
+                removeBlog(slug)
             }
         })
     }
 
-    const removeBlog = (slug) =>{
+    const removeBlog = (slug) => {
         axios.delete(`${process.env.REACT_APP_API}/blog/${slug}`)
-        .then((res)=>{
-            console.log("remove ...")
-            // console.log(res)
-            Swal.fire({
-                title:`${res.data.msg}`,
-                icon:"success"})
-            
-            //fetch all available
-            fetchData();
-            //if it's in filter system then refresh whole web 
-            if(typeActive){
-                window.location.reload(false)
-            }
-        })
-        .catch((err)=>console.log(err))
+            .then((res) => {
+                console.log("remove ...")
+                // console.log(res)
+                Swal.fire({
+                    title: `${res.data.msg}`,
+                    icon: "success"
+                })
+
+                //fetch all available
+                fetchData();
+                //if it's in filter system then refresh whole web 
+                if (typeActive) {
+                    window.location.reload(false)
+                }
+            })
+            .catch((err) => console.log(err))
     }
 
     return (
         <div className=' w-full  mt-2'>
             {/* {JSON.stringify(blogs)} */}
-             
+
             {/* select type Controller */}
             <div className='p-4 flex flex-col justify-between flex-wrap sm:flex-row'>
                 <div className='mt-3'>
-                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
-                onClick={() => {
-                
-                    filterType("Art")
-                    setTypeActive(true)
-                }}>Art</button>
+                    <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={() => {
+
+                            filterType("Art")
+                            setTypeActive(true)
+                        }}>Art</button>
                 </div>
                 <div className='mt-3'>
-                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
-                onClick={() => {
-                    
-                    filterType("Business")
-                    setTypeActive(true)
-                }}>Business</button>
+                    <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={() => {
+
+                            filterType("Business")
+                            setTypeActive(true)
+                        }}>Business</button>
                 </div>
                 <div className='mt-3'>
-                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
-                onClick={() => {
-                
-                    filterType("Money")
-                    setTypeActive(true)
-                }}>Money</button>
+                    <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={() => {
+
+                            filterType("Money")
+                            setTypeActive(true)
+                        }}>Money</button>
                 </div>
                 <div className='mt-3'>
-                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
-                onClick={() => {
-                    
-                    filterType("Psychology")
-                    setTypeActive(true)
-                }}>Psychology</button>
+                    <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={() => {
+
+                            filterType("Psychology")
+                            setTypeActive(true)
+                        }}>Psychology</button>
                 </div>
                 <div className='mt-3'>
-                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
-                onClick={() => {
-                
-                    filterType("Science")
-                    setTypeActive(true)
-                }}>Science</button>
+                    <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={() => {
+
+                            filterType("Science")
+                            setTypeActive(true)
+                        }}>Science</button>
                 </div>
 
                 <div className='mt-3'>
-                <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out' 
-                onClick={() => {
-                    
-                    filterType("Technology")
-                    setTypeActive(true)
-                }}>Technology</button>
+                    <button className='px-7 py-3 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-orange-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                        onClick={() => {
+
+                            filterType("Technology")
+                            setTypeActive(true)
+                        }}>Technology</button>
                 </div>
-       
-            </div> 
+
+            </div>
 
             {/*  render when select a type*/}
-             {(typeActive) && data.map((blog, index) => (
+            {(typeActive) && data.map((blog, index) => (
                 <div className='mb-2 p-4 border-b-[1px]' key={index}>
                     <Link to={`/blog/${blog.slug}`} >
                         <h2 className='font-bold'>{blog.title}</h2>
@@ -154,15 +157,19 @@ const ShowBlogs = () => {
                     <div>{parse(blog.content.substring(0, 220))} <span className='font-light'>...</span></div>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
-                    <div className='mt-2'> 
-                        <Link to={`/blog/update/${blog.slug}`}>
-                            <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>
-                                Update 
-                            </button>
-                        </Link>
-                        <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
-                        onClick={()=> confirmRemove(blog.slug)}> Delete </button>
-                    </div>
+
+                    {/* only admin with token can use update and delete feature */}
+                    {getUser() &&
+                        <div className='mt-2'>
+                            <Link to={`/blog/update/${blog.slug}`}>
+                                <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>
+                                    Update
+                                </button>
+                            </Link>
+                            <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                                onClick={() => confirmRemove(blog.slug)}> Delete </button>
+                        </div>
+                    }
                 </div>
             ))}
 
@@ -173,19 +180,22 @@ const ShowBlogs = () => {
                         <h2 className='font-bold text-3xl'>{blog.title}</h2>
                         <p className='font-light'>Category : {blog.prn_type} </p>
                     </Link>
-                    
+
                     <div>{parse(blog.content.substring(0, 220))} <span className='font-light'>...</span></div>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
-                    <div className='mt-2'> 
-                        <Link to={`/blog/update/${blog.slug}`}>
-                            <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>
-                                Update 
-                            </button>
-                        </Link>
-                        <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
-                        onClick={()=> confirmRemove(blog.slug)}> Delete </button>
-                    </div>
+                    {/* only admin with token can use update and delete feature */}
+                    {getUser() &&
+                        <div className='mt-2'>
+                            <Link to={`/blog/update/${blog.slug}`}>
+                                <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>
+                                    Update
+                                </button>
+                            </Link>
+                            <button className='bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-red-600 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'
+                                onClick={() => confirmRemove(blog.slug)}> Delete </button>
+                        </div>
+                    }
                 </div>
             ))}
 

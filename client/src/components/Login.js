@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import {authenticate} from '../services/authorize'
 import  { useNavigate } from 'react-router-dom'
 
-const Login = (props) => {
+const Login = () => {
 
   const [username,setUserName] = useState("")
   const [password,setPassword] = useState("") 
@@ -60,7 +60,7 @@ const Login = (props) => {
                 className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
               >
                 <p className="text-center font-semibold mx-4 mb-0 text-xl md:text-2xl lg:text-4xl">
-                  <span classNameName='text-teal-400'>S A I G</span> B l o g
+                  <span className='text-teal-400'>S A I G</span> B l o g
                 </p>
               </div>
 

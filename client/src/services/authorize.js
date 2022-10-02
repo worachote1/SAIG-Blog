@@ -1,14 +1,42 @@
-const { json } = require("react-router-dom")
-
 //Save token and admin username --> in session storage
 const authenticate = (res,next)=>{
     if(window !== "undefinded"){
         
         //save token
-        sessionStorage.setItem("token",JSON.stringify(res.data.token))
-        sessionStorage.setItem("username", JSON.stringify(res.data.username))
+        //JSON.stringify(res.data.token)
+        sessionStorage.setItem("token",res.data.token)
+        sessionStorage.setItem("username", res.data.username)
     }
     next()
 }   
 
-module.exports = {authenticate}
+// get token and username (from session storage) after login
+// get token
+const getToken = () =>{
+    if(window !== "undefinded"){
+        if(sessionStorage.getItem('token')){
+            // JSON.parse(sessionStorage.getItem("token"))
+            return sessionStorage.getItem("token")
+        }
+        else{
+            return false
+        }
+    }
+}
+
+// get user
+const getUser = () =>{
+    if(window !== "undefinded"){
+        if(sessionStorage.getItem('username')){
+            // JSON.parse(sessionStorage.getItem("username"))
+            return sessionStorage.getItem("username")
+        }
+        else{
+            return false
+        }
+    }
+}
+
+// Logout
+
+module.exports = {authenticate,getToken,getUser}
