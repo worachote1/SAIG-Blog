@@ -44,7 +44,6 @@ const getAllBlogs = (req, res) => {
 //Get a single blog using slug
 const getSingleBlog = (req, res) => {
 
-    console.log("test show 44 -> ")
     console.log(req)
     const { slug } = req.params
     Blogs.findOne({ slug }).exec((err, blog) => {
