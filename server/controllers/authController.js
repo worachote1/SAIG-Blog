@@ -1,7 +1,8 @@
 
 const jwt = require('jsonwebtoken')
+const exressJWT = require('express-jwt')
+
 const login =(req,res)=>{
- 
     const {username,password} = req.body
     //check admin username from env
     const admin_login_data = JSON.parse(process.env.ADMIN_DATA);
@@ -20,14 +21,16 @@ const login =(req,res)=>{
     else{
         // not found this user in admin data
         return res.status(400).json({"err_login" : "You have entered incorrect username"})
-    }
-
-    //test debug
-    // let checkUser = username in admin_login_data
-    // let checkPass = password === admin_login_data[username]
-    // res.json({admin_login_data,username,password,checkUser,checkPass})
-
+    }    
 }
 
+//secure api 
+//some API must log in order to send request
 
-module.exports = { login }
+const requireLogin = exressJWT.expressjwt({
+  secret : process.env.JWT_SECRET,
+  algorithms : ["HS256"],
+  userProperty : "auth"
+})
+
+module.exports = { login ,requireLogin }
