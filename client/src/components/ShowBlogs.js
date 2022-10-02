@@ -158,8 +158,8 @@ const ShowBlogs = () => {
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
 
-                    {/* only admin with token can use update and delete feature */}
-                    {getUser() &&
+                    {/* only the same admin with token can use update and delete feature */}
+                    {getUser()==blog.author &&
                         <div className='mt-2'>
                             <Link to={`/blog/update/${blog.slug}`}>
                                 <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>
@@ -184,8 +184,8 @@ const ShowBlogs = () => {
                     <div>{parse(blog.content.substring(0, 220))} <span className='font-light'>...</span></div>
                     <p className='font-light'>Author : {blog.author} </p>
                     <p className='font-light'>Published : {new Date(blog.createdAt).toLocaleString()}</p>
-                    {/* only admin with token can use update and delete feature */}
-                    {getUser() &&
+                    {/* only the same admin with token can use update and delete feature */}
+                    {getUser()==blog.author &&
                         <div className='mt-2'>
                             <Link to={`/blog/update/${blog.slug}`}>
                                 <button className='mr-2 bg-transparent rounded-full text-black font-medium  uppercase shadow-md hover:bg-green-500 hover:text-white focus:shadow-lg focus:outline-none transition duration-150 ease-in-out'>

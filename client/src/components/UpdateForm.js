@@ -13,7 +13,7 @@ const UpdateForm = () => {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [prn_type, set_prn_type] = useState("Art")
-    const [author, setAuthor] = useState("")
+    const [author, setAuthor] = useState()
     
     const {slug} = useParams()
 
@@ -119,8 +119,7 @@ const UpdateForm = () => {
          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
          focus:outline-none 
          md:text-xl
-        " value={author}
-                            onChange={(e) => setAuthor(e.target.value)}
+        " value={author} disabled
                         />
                     </div>
 

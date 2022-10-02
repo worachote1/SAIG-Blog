@@ -1,40 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from './Footer';
 import axios from 'axios';
 import Swal from 'sweetalert2'
-import {authenticate} from '../services/authorize'
-import  { useNavigate } from 'react-router-dom'
+import { authenticate } from '../services/authorize'
+import { useNavigate } from 'react-router-dom'
+
+import { getUser } from '../services/authorize';
 
 const Login = () => {
 
-  const [username,setUserName] = useState("")
-  const [password,setPassword] = useState("") 
+  const [username, setUserName] = useState("")
+  const [password, setPassword] = useState("")
 
   const navigate = useNavigate();
 
   const submitLoginForm = (e) => {
     e.preventDefault();
     console.log("Gonna req GG")
-    axios.post(`${process.env.REACT_APP_API}/login`,{username,password})
-    .then((res)=>{
-      //Login success
-      console.log(res)
-      authenticate(res,()=>{
-        // navigate to /
-        navigate('/');
+    axios.post(`${process.env.REACT_APP_API}/login`, { username, password })
+      .then((res) => {
+        //Login success
+        console.log(res)
+        authenticate(res, () => {
+          // navigate to /
+          navigate('/');
+        })
       })
-    })
-    .catch((err)=>{
-      // console.log("error login !")
-      // console.log(err.response.data.err_login)
-      Swal.fire({
-        icon: 'error',
-        title: 'Warning...',
-        text: `${err.response.data.err_login}`
-    })
-    })
-    
-}
+      .catch((err) => {
+        // console.log("error login !")
+        // console.log(err.response.data.err_login)
+        Swal.fire({
+          icon: 'error',
+          title: 'Warning...',
+          text: `${err.response.data.err_login}`
+        })
+      })
+  }
+
+  //if admin is already log in , can not go to login route
+  //redirect it back to / path
+  useEffect((() => {
+    getUser() && navigate('/')
+  }), [])
 
   return (
 
@@ -53,7 +60,7 @@ const Login = () => {
             />
           </div>
           <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-           
+
             <form onSubmit={submitLoginForm}>
 
               <div
@@ -71,7 +78,7 @@ const Login = () => {
                   id="exampleFormControlInput2"
                   value={username}
                   placeholder="Username"
-                  onChange={(e)=>setUserName(e.target.value)}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
 
@@ -82,7 +89,7 @@ const Login = () => {
                   id="exampleFormControlInput2"
                   value={password}
                   placeholder="Password"
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 

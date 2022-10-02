@@ -44,7 +44,7 @@ const NavBar = () => {
             <div>
 
                 {/* Go create page */}
-                {(true) && <Link to='/create'>
+                {getUser() && <Link to='/create'>
                     <button className='hidden
                 px-7 py-3 mx-2 bg-transparent rounded-full text-black font-medium text-sm leading-snug uppercase shadow-md hover:bg-teal-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
              md:inline-block'>
@@ -67,7 +67,10 @@ const NavBar = () => {
                     <button className='hidden
                     "px-7 py-3 mx-2 bg-transparent text-black rounded-full font-medium text-sm leading-snug uppercase  shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
              md:inline-block'
-                    onClick={()=>logout(() => {navigate('/')})}
+                    onClick={() => logout(() => {
+                        navigate('/')
+                        window.location.reload(false)
+                        })}
                     >
                         Log out
                     </button>
@@ -131,9 +134,10 @@ const NavBar = () => {
                             {getUser() && <a>
                                 <button className='
                     px-7 py-3 mt-2 bg-transparent text-black rounded-full font-medium text-sm leading-snug uppercase  shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-red-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
-                                    onClick={()=>logout(() => {
-                                        navigate('/') 
-                                        window.location.reload(false)})}
+                                    onClick={() => logout(() => {
+                                        navigate('/')
+                                        window.location.reload(false)
+                                    })}
                                 >
                                     Log out
                                 </button>
