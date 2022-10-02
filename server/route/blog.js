@@ -4,13 +4,15 @@ const {create,getAllBlogs,getSingleBlog,remove,update} = require('../controllers
 
 const {requireLogin} = require('../controllers/authController')
 
-router.post('/create',create)
+//must log in to request API for create blog (have token) 
+router.post('/create',requireLogin,create)
 
-//must log in to request API for get all blogs
-router.get('/blogs',requireLogin,getAllBlogs)
-
+//all user not (only admin) can request API for reading blogs (don't need token to send request)
+router.get('/blogs',getAllBlogs)
 router.get('/blog/:slug',getSingleBlog)
-router.delete('/blog/:slug',remove)
-router.put('/blog/:slug',update)
+
+//must log in to request API for delete,update blog (have token) 
+router.delete('/blog/:slug',requireLogin,remove)
+router.put('/blog/:slug',requireLogin,update)
 
 module.exports = router
