@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 const blogRoute = require('./route/blog')
+const authRoute = require('./route/auth')
 
 const app = express()
 
@@ -22,6 +23,8 @@ app.use(morgan('dev'))
 
 //route
 app.use('/api',blogRoute)
+app.use('/api',authRoute)
+
 
 const port = process.env.PORT || 4400
 app.listen(port,()=>console.log(`Start server in port ${port}`))

@@ -27,6 +27,7 @@ const SingleComponent = () => {
             <NavBar />
             <div className=' w-full  mt-2 p-4 border-t-[1px]'>
 
+                {/* Display after blog get fetched data */}
                 {(blog) &&
                     <div>
                         <h2 className='font-bold text-3xl'>{blog.title}</h2>
