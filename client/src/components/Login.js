@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import Footer from './Footer';
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import {authenticate} from '../services/authorize'
+import  { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = (props) => {
 
   const [username,setUserName] = useState("")
   const [password,setPassword] = useState("") 
 
+  const navigate = useNavigate();
 
   const submitLoginForm = (e) => {
     e.preventDefault();
@@ -15,11 +18,11 @@ const Login = () => {
     axios.post(`${process.env.REACT_APP_API}/login`,{username,password})
     .then((res)=>{
       //Login success
-      Swal.fire(
-        'Warning',
-        'Login success',
-        'success'
-    )
+      console.log(res)
+      authenticate(res,()=>{
+        // navigate to /
+        navigate('/');
+      })
     })
     .catch((err)=>{
       // console.log("error login !")
