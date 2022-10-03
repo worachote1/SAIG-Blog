@@ -13,7 +13,7 @@ const blogSchema = mongoose.Schema({
     },
     prn_type : {
         type : String,
-        default : "Art"
+        default : "Art" 
         // required : true
     },
     author:{
