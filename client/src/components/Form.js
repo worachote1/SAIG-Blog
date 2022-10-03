@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { getUser } from '../services/authorize'
+import { getUser,getToken } from '../services/authorize'
 
 const Form = () => {
 
@@ -18,7 +18,14 @@ const Form = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API}/create`, { title, content, prn_type, author })
+        axios.post(`${process.env.REACT_APP_API}/create`, { title, content, prn_type, author }
+        ,{
+            //validate token for save blog data to mongodb
+            headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+            }
+        )
             .then((res) => {
                 console.log(res)
                 //alert("Save data success")

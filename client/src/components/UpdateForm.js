@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+import { getToken } from '../services/authorize'
+
 const UpdateForm = () => {
 
     const [title, setTitle] = useState("")
@@ -20,7 +22,13 @@ const UpdateForm = () => {
     const submitUpdateForm = (e) => {
         e.preventDefault();
         console.table({title,content,prn_type,author})
-        axios.put(`${process.env.REACT_APP_API}/blog/${slug}`,{title,content,prn_type,author})
+        axios.put(`${process.env.REACT_APP_API}/blog/${slug}`,{title,content,prn_type,author}
+        ,{
+            //validate token for update
+            headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+            })
         .then((res)=>{
             console.log(res)
             //alert("Save data success")
@@ -46,7 +54,6 @@ const UpdateForm = () => {
 
 
     //fetch former data to be displayed
-    
     useEffect(()=>{
         axios.get(`${process.env.REACT_APP_API}/blog/${slug}`)
         .then((res)=>{

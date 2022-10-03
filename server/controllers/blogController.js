@@ -56,7 +56,7 @@ const remove = (req, res) => {
     const { slug } = req.params
     Blogs.findOneAndDelete({ slug }).exec((err, blog) => {
 
-        res.json({ msg: "Remove success !", slug: slug })
+       res.json({ msg: "Remove success !", slug: slug })
     })
 
 }
@@ -67,7 +67,10 @@ const update = (req, res) => {
     const { slug } = req.params
     
     Blogs.findOneAndUpdate({ slug }, {  title,content,prn_type, author }, { new: true }).exec((err, blog) => {
-      
+        
+        if(err){
+            return res.status(400).json({ msg_error: "Update error..." })
+        }
         //validate Update blog
         if (!title) {
             return res.status(400).json({ msg_error: "please , enter title" })

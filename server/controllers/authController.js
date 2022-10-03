@@ -26,7 +26,6 @@ const login =(req,res)=>{
 
 //secure api 
 //some API must log in order to send request
-
 const requireLogin = exressJWT.expressjwt({
   secret : process.env.JWT_SECRET,
   algorithms : ["HS256"],

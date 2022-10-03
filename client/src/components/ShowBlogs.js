@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 
 import parse from 'html-react-parser';
 
-import { getUser } from '../services/authorize';
+import { getUser ,getToken} from '../services/authorize';
 
 const ShowBlogs = () => {
 
@@ -69,7 +69,12 @@ const ShowBlogs = () => {
     }
 
     const removeBlog = (slug) => {
-        axios.delete(`${process.env.REACT_APP_API}/blog/${slug}`)
+        axios.delete(`${process.env.REACT_APP_API}/blog/${slug}`,{
+            //validate token for delete data
+            headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+            })
             .then((res) => {
                 console.log("remove ...")
                 // console.log(res)

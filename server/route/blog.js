@@ -15,4 +15,4 @@ router.get('/blog/:slug',getSingleBlog)
 router.delete('/blog/:slug',requireLogin,remove)
 router.put('/blog/:slug',requireLogin,update)
 
-module.exports = router
+module.exports = router 

@@ -46,4 +46,4 @@ const logout = (next) => {
     next()
 }
 
-module.exports = { authenticate, getToken, getUser, logout }
+module.exports = { authenticate, getToken, getUser, logout } 
